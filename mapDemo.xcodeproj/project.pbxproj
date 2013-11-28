@@ -19,6 +19,12 @@
 		49A06B76183D8C7300C71CF2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A06B5E183D8C7300C71CF2 /* UIKit.framework */; };
 		49A06B7E183D8C7300C71CF2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49A06B7C183D8C7300C71CF2 /* InfoPlist.strings */; };
 		49A06B80183D8C7300C71CF2 /* mapDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A06B7F183D8C7300C71CF2 /* mapDemoTests.m */; };
+		49A06B8B183D8CA300C71CF2 /* mainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A06B8A183D8CA300C71CF2 /* mainViewController.m */; };
+		49A06B8D183D8D7300C71CF2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A06B8C183D8D7300C71CF2 /* CoreLocation.framework */; };
+		49A06B8F183D8D7B00C71CF2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A06B8E183D8D7B00C71CF2 /* MapKit.framework */; };
+		49A06B91183DA27300C71CF2 /* record.txt in Resources */ = {isa = PBXBuildFile; fileRef = 49A06B90183DA27300C71CF2 /* record.txt */; };
+		49A06B94183DB56600C71CF2 /* GradientPolylineRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A06B93183DB56600C71CF2 /* GradientPolylineRenderer.m */; };
+		49ABDEFA184076AC001A6439 /* GradientPolylineOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 49ABDEF9184076AC001A6439 /* GradientPolylineOverlay.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +54,15 @@
 		49A06B7B183D8C7300C71CF2 /* mapDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "mapDemoTests-Info.plist"; sourceTree = "<group>"; };
 		49A06B7D183D8C7300C71CF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		49A06B7F183D8C7300C71CF2 /* mapDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mapDemoTests.m; sourceTree = "<group>"; };
+		49A06B89183D8CA300C71CF2 /* mainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainViewController.h; sourceTree = "<group>"; };
+		49A06B8A183D8CA300C71CF2 /* mainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mainViewController.m; sourceTree = "<group>"; };
+		49A06B8C183D8D7300C71CF2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		49A06B8E183D8D7B00C71CF2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		49A06B90183DA27300C71CF2 /* record.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = record.txt; sourceTree = "<group>"; };
+		49A06B92183DB56600C71CF2 /* GradientPolylineRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientPolylineRenderer.h; sourceTree = "<group>"; };
+		49A06B93183DB56600C71CF2 /* GradientPolylineRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientPolylineRenderer.m; sourceTree = "<group>"; };
+		49ABDEF8184076AC001A6439 /* GradientPolylineOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientPolylineOverlay.h; sourceTree = "<group>"; };
+		49ABDEF9184076AC001A6439 /* GradientPolylineOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientPolylineOverlay.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49A06B8F183D8D7B00C71CF2 /* MapKit.framework in Frameworks */,
+				49A06B8D183D8D7300C71CF2 /* CoreLocation.framework in Frameworks */,
 				49A06B5D183D8C7300C71CF2 /* CoreGraphics.framework in Frameworks */,
 				49A06B5F183D8C7300C71CF2 /* UIKit.framework in Frameworks */,
 				49A06B5B183D8C7300C71CF2 /* Foundation.framework in Frameworks */,
@@ -96,6 +113,8 @@
 		49A06B59183D8C7300C71CF2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				49A06B8E183D8D7B00C71CF2 /* MapKit.framework */,
+				49A06B8C183D8D7300C71CF2 /* CoreLocation.framework */,
 				49A06B5A183D8C7300C71CF2 /* Foundation.framework */,
 				49A06B5C183D8C7300C71CF2 /* CoreGraphics.framework */,
 				49A06B5E183D8C7300C71CF2 /* UIKit.framework */,
@@ -111,6 +130,12 @@
 				49A06B6A183D8C7300C71CF2 /* AppDelegate.m */,
 				49A06B6C183D8C7300C71CF2 /* Images.xcassets */,
 				49A06B61183D8C7300C71CF2 /* Supporting Files */,
+				49A06B89183D8CA300C71CF2 /* mainViewController.h */,
+				49A06B8A183D8CA300C71CF2 /* mainViewController.m */,
+				49A06B92183DB56600C71CF2 /* GradientPolylineRenderer.h */,
+				49A06B93183DB56600C71CF2 /* GradientPolylineRenderer.m */,
+				49ABDEF8184076AC001A6439 /* GradientPolylineOverlay.h */,
+				49ABDEF9184076AC001A6439 /* GradientPolylineOverlay.m */,
 			);
 			path = mapDemo;
 			sourceTree = "<group>";
@@ -118,6 +143,7 @@
 		49A06B61183D8C7300C71CF2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				49A06B90183DA27300C71CF2 /* record.txt */,
 				49A06B62183D8C7300C71CF2 /* mapDemo-Info.plist */,
 				49A06B63183D8C7300C71CF2 /* InfoPlist.strings */,
 				49A06B66183D8C7300C71CF2 /* main.m */,
@@ -219,6 +245,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49A06B91183DA27300C71CF2 /* record.txt in Resources */,
 				49A06B65183D8C7300C71CF2 /* InfoPlist.strings in Resources */,
 				49A06B6D183D8C7300C71CF2 /* Images.xcassets in Resources */,
 			);
@@ -239,7 +266,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49A06B8B183D8CA300C71CF2 /* mainViewController.m in Sources */,
 				49A06B6B183D8C7300C71CF2 /* AppDelegate.m in Sources */,
+				49ABDEFA184076AC001A6439 /* GradientPolylineOverlay.m in Sources */,
+				49A06B94183DB56600C71CF2 /* GradientPolylineRenderer.m in Sources */,
 				49A06B67183D8C7300C71CF2 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,6 +391,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yuan Chih Lin (F9B56PXNQA)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mapDemo/mapDemo-Prefix.pch";
 				INFOPLIST_FILE = "mapDemo/mapDemo-Info.plist";
@@ -443,6 +474,7 @@
 				49A06B85183D8C7300C71CF2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		49A06B86183D8C7300C71CF2 /* Build configuration list for PBXNativeTarget "mapDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -451,6 +483,7 @@
 				49A06B88183D8C7300C71CF2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
