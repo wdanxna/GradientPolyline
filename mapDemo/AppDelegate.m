@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "mainViewController.h"
+#import "LocationViewController.h"
 
 @implementation AppDelegate
 
@@ -18,8 +19,17 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    
+    
     mainViewController* viewController = [[mainViewController alloc] init];
-    self.window.rootViewController = viewController;
+    LocationViewController* lViewController = [[LocationViewController alloc] init];
+    tabBarController.viewControllers = [NSArray arrayWithObjects: lViewController,viewController, nil];
+    
+    lViewController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFeatured tag:0];
+    viewController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:1];
+
+    self.window.rootViewController = tabBarController;
     return YES;
 }
 

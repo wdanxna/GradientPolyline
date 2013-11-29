@@ -12,8 +12,9 @@
 #import "GradientPolylineRenderer.h"
 #import "GradientPolylineOverlay.h"
 
-@interface mainViewController ()<MKMapViewDelegate>{
+@interface mainViewController ()<MKMapViewDelegate,CLLocationManagerDelegate>{
     MKMapView* mapView;
+    CLLocationManager *locationManager;
 }
 
 @end
@@ -31,6 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
     mapView.delegate = self;
     [self.view addSubview:mapView];
@@ -38,7 +40,7 @@
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(23.29043, 112.81630), 500, 500);
     [mapView setRegion:region];
     [self placeOverlay];
-    [self drawPolyLineFromFile:@"record"];
+//    [self drawPolyLineFromFile:@"record.txt"];
 }
 
 #pragma mark - mk delegate
@@ -60,36 +62,46 @@
 #pragma mark - setup overlay
 
 -(void) drawPolyLineFromFile:(NSString*)fileName{
-    NSString* fileRoot = [[NSBundle mainBundle] pathForResource:fileName ofType:@"txt"];
-    FILE *file = fopen([fileRoot UTF8String], "r");
-    char buffer[256];
-#define MAX_POINTS 3000
-    int pointCount = 0;
-    int pointsMount = MAX_POINTS;
-    
-    CLLocationCoordinate2D *points;
-    float *velocity;
-    points = malloc(sizeof(CLLocationCoordinate2D)*MAX_POINTS);
-    velocity = malloc(sizeof(float)*MAX_POINTS);
-    
-    while (fgets(buffer, 256, file) != NULL){
-        NSString* result = [NSString stringWithUTF8String:buffer];
-        //strip off the newline
-        result = [result stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        //0:latitude, 1:longitude, 2:velocity
-        NSArray* elements = [result componentsSeparatedByString:@","];
-        CLLocationCoordinate2D point = CLLocationCoordinate2DMake([elements[0] doubleValue], [elements[1] doubleValue]);
-        if (pointCount > MAX_POINTS){
-            //magic number here, needs improvement.
-            points = realloc(points, 500);
-            pointsMount += 500;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory, fileName];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]){
+        FILE *file = fopen([filePath UTF8String], "r");
+        char buffer[256];
+    #define MAX_POINTS 3000
+        int pointCount = 0;
+        int pointsMount = MAX_POINTS;
+        
+        CLLocationCoordinate2D *points;
+        float *velocity;
+        points = malloc(sizeof(CLLocationCoordinate2D)*MAX_POINTS);
+        velocity = malloc(sizeof(float)*MAX_POINTS);
+        
+        while (fgets(buffer, 256, file) != NULL){
+            NSString* result = [NSString stringWithUTF8String:buffer];
+            //strip off the newline
+            result = [result stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            //0:latitude, 1:longitude, 2:velocity
+            NSArray* elements = [result componentsSeparatedByString:@","];
+            CLLocationCoordinate2D point = CLLocationCoordinate2DMake([elements[0] doubleValue], [elements[1] doubleValue]);
+            if (pointCount > MAX_POINTS){
+                //magic number here, needs improvement.
+                points = realloc(points, 500);
+                pointsMount += 500;
+            }
+            velocity[pointCount] = [elements[2] floatValue];
+            points[pointCount++] = point;
         }
-        velocity[pointCount] = [elements[2] floatValue];
-        points[pointCount++] = point;
+    #undef MAX_POINTS
+        polyline = [[GradientPolylineOverlay alloc] initWithPoints:points velocity:velocity count:pointCount];
+        [mapView addOverlay:polyline];
     }
-#undef MAX_POINTS
-    polyline = [[GradientPolylineOverlay alloc] initWithPoints:points velocity:velocity count:pointCount];
-    [mapView addOverlay:polyline];
+}
+
+-(void) viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [mapView removeOverlay:polyline];
+    [self drawPolyLineFromFile:@"record.txt"];
 }
 
 -(void) placeOverlay{

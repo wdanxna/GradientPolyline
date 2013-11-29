@@ -10,8 +10,8 @@
 #import <pthread.h>
 #import "GradientPolylineOverlay.h"
 
-#define V_MAX 1.5
-#define V_MIN 0.15
+#define V_MAX 4.0
+#define V_MIN 2.0
 #define H_MAX 0.3
 #define H_MIN 0.03
 

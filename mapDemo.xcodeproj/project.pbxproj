@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49578D1A18481D3200C1117A /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49578D1918481D3200C1117A /* LocationViewController.m */; };
 		49A06B5B183D8C7300C71CF2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A06B5A183D8C7300C71CF2 /* Foundation.framework */; };
 		49A06B5D183D8C7300C71CF2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A06B5C183D8C7300C71CF2 /* CoreGraphics.framework */; };
 		49A06B5F183D8C7300C71CF2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A06B5E183D8C7300C71CF2 /* UIKit.framework */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		49578D1818481D3200C1117A /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
+		49578D1918481D3200C1117A /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
 		49A06B57183D8C7300C71CF2 /* mapDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mapDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49A06B5A183D8C7300C71CF2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		49A06B5C183D8C7300C71CF2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -136,6 +139,8 @@
 				49A06B93183DB56600C71CF2 /* GradientPolylineRenderer.m */,
 				49ABDEF8184076AC001A6439 /* GradientPolylineOverlay.h */,
 				49ABDEF9184076AC001A6439 /* GradientPolylineOverlay.m */,
+				49578D1818481D3200C1117A /* LocationViewController.h */,
+				49578D1918481D3200C1117A /* LocationViewController.m */,
 			);
 			path = mapDemo;
 			sourceTree = "<group>";
@@ -267,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49A06B8B183D8CA300C71CF2 /* mainViewController.m in Sources */,
+				49578D1A18481D3200C1117A /* LocationViewController.m in Sources */,
 				49A06B6B183D8C7300C71CF2 /* AppDelegate.m in Sources */,
 				49ABDEFA184076AC001A6439 /* GradientPolylineOverlay.m in Sources */,
 				49A06B94183DB56600C71CF2 /* GradientPolylineRenderer.m in Sources */,
