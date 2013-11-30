@@ -16,6 +16,8 @@ static int MAX_LOCATIONS = 3000;
     CLLocationCoordinate2D *allLocations;
     float *allSpeed;
     int locationCount;
+    UILabel *label;
+    UILabel *signal;
 }
 
 @end
@@ -36,17 +38,33 @@ static int MAX_LOCATIONS = 3000;
         allSpeed = malloc(sizeof(float)*MAX_LOCATIONS);
         
         UIButton *start = [UIButton buttonWithType:UIButtonTypeSystem];
-        start.frame = CGRectMake(0, 0, 200, 150);
+        start.frame = CGRectMake(100, 50, 100, 80);
         [start setTitle:@"start" forState:UIControlStateNormal];
         [start addTarget:self action:@selector(startAction) forControlEvents:UIControlEventTouchUpInside];
+        start.tintColor =[UIColor greenColor];
         
         UIButton *stop = [UIButton buttonWithType:UIButtonTypeSystem];
-        stop.frame = CGRectMake(0, 200, 200, 150);
+        stop.frame = CGRectMake(100, 200, 100, 80);
         [stop setTitle:@"Stop" forState:UIControlStateNormal];
         [stop addTarget:self action:@selector(stopAction) forControlEvents:UIControlEventTouchUpInside];
+        stop.tintColor =[UIColor greenColor];
         
+        label = [[UILabel alloc] initWithFrame:CGRectMake(5, 290, 300, 50)];
+        label.textColor = [UIColor greenColor];
+        label.textAlignment = NSTextAlignmentCenter;
+        
+        signal = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 50)];
+        signal.textColor = [UIColor greenColor];
+        signal.textAlignment = NSTextAlignmentLeft;
+        
+        self.view.backgroundColor = [UIColor blackColor];
+        [self.view addSubview:signal];
+        [self.view addSubview:label];
         [self.view addSubview:start];
         [self.view addSubview:stop];
+        
+
+        
     }
     return self;
 }
@@ -73,13 +91,42 @@ static int MAX_LOCATIONS = 3000;
     
     NSError *error;
     [text writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    if (!error){
+        label.text = @"Recorded!";
+    }else {
+        label.text = @"failed, file write error";
+    }
+    
+    locationCount = 0;
 }
 
 #pragma mark - locationManager delegate
 -(void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    CLLocationCoordinate2D currentlocation = ((CLLocation*)locations.lastObject).coordinate;
+    CLLocation *location = (CLLocation*)locations.lastObject;
+    if (location.horizontalAccuracy < 0)
+    {
+        signal.text = @"No Singal";
+        signal.textColor = [UIColor redColor];
+    }
+    else if (location.horizontalAccuracy > 163)
+    {
+        signal.text = @"POOR";
+        signal.textColor = [UIColor orangeColor];
+    }
+    else if (location.horizontalAccuracy > 48)
+    {
+        signal.text = @"AVERAGE";
+        signal.textColor = [UIColor yellowColor];
+    }
+    else
+    {
+        signal.text = @"STRONG";
+        signal.textColor = [UIColor greenColor];
+    }
+    CLLocationCoordinate2D currentlocation = location.coordinate;
     float currentSpeed = ((CLLocation*)locations.lastObject).speed;
-    NSLog(@"%f,%f",currentlocation.latitude,currentlocation.longitude);
+    NSString *tstr = [NSString stringWithFormat:@"%f,%f,%f",currentlocation.latitude,currentlocation.longitude,currentSpeed];
+    label.text = tstr;
     if (locationCount-1 > MAX_LOCATIONS ){
         allLocations = realloc(allLocations, sizeof(CLLocationCoordinate2D)*500);
         allSpeed = realloc(allSpeed, sizeof(float)*500);
@@ -136,6 +183,7 @@ static int MAX_LOCATIONS = 3000;
 }
 
 #pragma - mark origin
+
 
 
 - (void)viewDidLoad

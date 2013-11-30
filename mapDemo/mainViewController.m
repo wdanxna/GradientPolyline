@@ -40,7 +40,6 @@
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(23.29043, 112.81630), 500, 500);
     [mapView setRegion:region];
     [self placeOverlay];
-//    [self drawPolyLineFromFile:@"record.txt"];
 }
 
 #pragma mark - mk delegate

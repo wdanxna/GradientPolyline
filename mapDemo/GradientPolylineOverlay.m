@@ -135,10 +135,4 @@
     return updateRect;
 }
 
-
--(CGPathRef) getPathWithRect:(MKMapRect)rect{
-    CGMutablePathRef path = CGPathCreateMutable();
-    return path;
-}
-
 @end
