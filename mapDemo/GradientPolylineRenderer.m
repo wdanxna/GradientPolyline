@@ -35,9 +35,9 @@
 /**
  *  Convert velocity to Hue using specific formular.
  *
- *  H(v) = Vmax, (v > Vmax)
- *       = Vmin + ((v-Vmin)*(Hmax-Hmin))/(Vmax-Vmin), (Vmin <= v <= Vmax)
- *       = Vmin, (v < Vmin)
+ *  H(v) = Hmax, (v > Vmax)
+ *       = Hmin + ((v-Vmin)*(Hmax-Hmin))/(Vmax-Vmin), (Vmin <= v <= Vmax)
+ *       = Hmin, (v < Vmin)
  *
  *  @param velocity Velocity list.
  *  @param count    count of velocity list.
