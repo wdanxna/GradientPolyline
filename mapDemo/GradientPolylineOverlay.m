@@ -25,7 +25,8 @@
         points = malloc(sizeof(MKMapPoint)*pointSpace);
         points[0] = MKMapPointForCoordinate(coord);
         pointCount = 1;
-		//here        
+		//here   
+		//hehehehehehehehehehehehehehehe
         //bite off up to 1/4 of the world to draw into
         MKMapPoint origin = points[0];
         origin.x -= MKMapSizeWorld.width/8.0;
