@@ -27,6 +27,9 @@
         pointCount = 1;
 		//here        
         //bite off up to 1/4 of the world to draw into
+		//flksajfkalsdjfklsadjflk
+		//sfjalkjflkadsjf
+		//asfjklfjdklasjfkjasdfkljadskfljaskdlfjasklfaksldfjkalsdfjklajsdflsajflkjs
         MKMapPoint origin = points[0];
         origin.x -= MKMapSizeWorld.width/8.0;
         origin.y -= MKMapSizeWorld.height/8.0;
