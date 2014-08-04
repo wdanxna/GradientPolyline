@@ -10,7 +10,7 @@
 #import <pthread.h>
 #import "GradientPolylineOverlay.h"
 
-#define V_MAX 10.0
+#define V_MAX 5.0
 #define V_MIN 2.0
 #define H_MAX 0.3
 #define H_MIN 0.03
@@ -29,6 +29,7 @@
         float *velocity = polyline.velocity;
         int count = (int)polyline.pointCount;
         [self velocity:velocity ToHue:&hues count:count];
+        [self createPath];
     }
     return self;
 }
@@ -52,6 +53,7 @@
         (*_hue)[i] = H_MIN + ((curVelo-V_MIN)*(H_MAX-H_MIN))/(V_MAX-V_MIN);
     }
 }
+
 -(void) createPath{
     CGMutablePathRef path = CGPathCreateMutable();
     BOOL pathIsEmpty = YES;
@@ -70,28 +72,19 @@
     pthread_rwlock_unlock(&rwLock);
 }
 
+-(BOOL)canDrawMapRect:(MKMapRect)mapRect zoomScale:(MKZoomScale)zoomScale{
+    CGRect pointsRect = CGPathGetBoundingBox(self.path);
+    CGRect mapRectCG = [self rectForMapRect:mapRect];
+    return CGRectIntersectsRect(pointsRect, mapRectCG);
+}
+
 
 -(void) drawMapRect:(MKMapRect)mapRect zoomScale:(MKZoomScale)zoomScale inContext:(CGContextRef)context{
     
-    CGMutablePathRef fullPath = CGPathCreateMutable();
-    BOOL pathIsEmpty = YES;
-    for (int i=0;i< polyline.pointCount;i++){
-        CGPoint point = [self pointForMapPoint:polyline.points[i]];
-        if (pathIsEmpty){
-            CGPathMoveToPoint(fullPath, nil, point.x, point.y);
-            pathIsEmpty = NO;
-        } else {
-            CGPathAddLineToPoint(fullPath, nil, point.x, point.y);
-        }
-    }
-    
-    CGRect pointsRect = CGPathGetBoundingBox(fullPath);
-    CGRect mapRectCG = [self rectForMapRect:mapRect];
-    if (!CGRectIntersectsRect(pointsRect, mapRectCG))return;
     UIColor* pcolor,*ccolor;
     for (int i=0;i< polyline.pointCount;i++){
-        CGMutablePathRef path = CGPathCreateMutable();
         CGPoint point = [self pointForMapPoint:polyline.points[i]];
+        CGMutablePathRef path = CGPathCreateMutable();
         ccolor = [UIColor colorWithHue:hues[i] saturation:1.0f brightness:1.0f alpha:1.0f];
         if (i==0){
             CGPathMoveToPoint(path, nil, point.x, point.y);
@@ -99,10 +92,13 @@
             CGPoint prevPoint = [self pointForMapPoint:polyline.points[i-1]];
             CGPathMoveToPoint(path, nil, prevPoint.x, prevPoint.y);
             CGPathAddLineToPoint(path, nil, point.x, point.y);
+            
             CGFloat pc_r,pc_g,pc_b,pc_a,
-            cc_r,cc_g,cc_b,cc_a;
+                    cc_r,cc_g,cc_b,cc_a;
+            
             [pcolor getRed:&pc_r green:&pc_g blue:&pc_b alpha:&pc_a];
             [ccolor getRed:&cc_r green:&cc_g blue:&cc_b alpha:&cc_a];
+            
             CGFloat gradientColors[8] = {pc_r,pc_g,pc_b,pc_a,
                                         cc_r,cc_g,cc_b,cc_a};
             

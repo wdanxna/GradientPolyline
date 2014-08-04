@@ -20,12 +20,6 @@
 @end
 
 @implementation mainViewController{
-    CLLocationCoordinate2D lt;
-    CLLocationCoordinate2D rt;
-    CLLocationCoordinate2D rb;
-    CLLocationCoordinate2D lb;
-    
-    MKPolygon* polygon;
     GradientPolylineOverlay* polyline;
 }
 
@@ -36,26 +30,13 @@
     mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
     mapView.delegate = self;
     [self.view addSubview:mapView];
-    [self setupBounds];
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(23.29043, 112.81630), 500, 500);
-    [mapView setRegion:region];
-    [self placeOverlay];
 }
 
 #pragma mark - mk delegate
 -(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay{
-    UIColor* purpleColor = [UIColor colorWithRed:0.149f green:0.0f blue:0.40f alpha:0.5f];
-    if (overlay == polygon){
-        MKPolygonRenderer *polygonRenderer = [[MKPolygonRenderer alloc] initWithOverlay:overlay];
-        polygonRenderer.fillColor = purpleColor;
-        return polygonRenderer;
-    }else if (overlay == polyline){
-        GradientPolylineRenderer *polylineRenderer = [[GradientPolylineRenderer alloc] initWithOverlay:overlay];
-        polylineRenderer.lineWidth = 8.0f;
-        polylineRenderer.strokeColor = [UIColor redColor];
-        return polylineRenderer;
-    }
-    return nil;
+    GradientPolylineRenderer *polylineRenderer = [[GradientPolylineRenderer alloc] initWithOverlay:overlay];
+    polylineRenderer.lineWidth = 8.0f;
+    return polylineRenderer;
 }
 
 #pragma mark - setup overlay
@@ -83,7 +64,7 @@
             //0:latitude, 1:longitude, 2:velocity
             NSArray* elements = [result componentsSeparatedByString:@","];
             CLLocationCoordinate2D point = CLLocationCoordinate2DMake([elements[0] doubleValue], [elements[1] doubleValue]);
-            if (pointCount > MAX_POINTS){
+            if (pointCount > pointsMount){
                 //magic number here, needs improvement.
                 points = realloc(points, 500);
                 pointsMount += 500;
@@ -103,24 +84,6 @@
     [self drawPolyLineFromFile:@"record.txt"];
 }
 
--(void) placeOverlay{
-    CLLocationCoordinate2D highlight[4];
-    
-    highlight[0] = lt;
-    highlight[1] = rt;
-    highlight[2] = rb;
-    highlight[3] = lb;
-    
-    polygon = [MKPolygon polygonWithCoordinates:highlight count:4];
-    [mapView addOverlay:polygon level:MKOverlayLevelAboveLabels];
-}
-
--(void) setupBounds{
-    lt = CLLocationCoordinate2DMake(23.29131,112.8155);
-    rt = CLLocationCoordinate2DMake(23.29061, 112.8177);
-    lb = CLLocationCoordinate2DMake(23.29014, 112.8151);
-    rb = CLLocationCoordinate2DMake(23.28949, 112.8173);
-}
 
 - (void)didReceiveMemoryWarning
 {
