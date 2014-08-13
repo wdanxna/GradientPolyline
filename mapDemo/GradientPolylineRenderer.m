@@ -72,14 +72,20 @@
     pthread_rwlock_unlock(&rwLock);
 }
 
--(BOOL)canDrawMapRect:(MKMapRect)mapRect zoomScale:(MKZoomScale)zoomScale{
-    CGRect pointsRect = CGPathGetBoundingBox(self.path);
-    CGRect mapRectCG = [self rectForMapRect:mapRect];
-    return CGRectIntersectsRect(pointsRect, mapRectCG);
-}
+//-(BOOL)canDrawMapRect:(MKMapRect)mapRect zoomScale:(MKZoomScale)zoomScale{
+//    CGRect pointsRect = CGPathGetBoundingBox(self.path);
+//    CGRect mapRectCG = [self rectForMapRect:mapRect];
+//    return CGRectIntersectsRect(pointsRect, mapRectCG);
+//}
 
 
 -(void) drawMapRect:(MKMapRect)mapRect zoomScale:(MKZoomScale)zoomScale inContext:(CGContextRef)context{
+    
+    //put this blok into the canDraw method cause problem
+    CGRect pointsRect = CGPathGetBoundingBox(self.path);
+    CGRect mapRectCG = [self rectForMapRect:mapRect];
+    if (!CGRectIntersectsRect(pointsRect, mapRectCG))return;
+
     
     UIColor* pcolor,*ccolor;
     for (int i=0;i< polyline.pointCount;i++){
